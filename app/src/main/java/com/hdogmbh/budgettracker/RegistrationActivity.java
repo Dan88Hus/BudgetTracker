@@ -55,6 +55,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
                 mDialog.setMessage("Processing");
+                mDialog.show();
                 mAuth.createUserWithEmailAndPassword(emailRegister,passwordRegister).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -62,12 +63,13 @@ public class RegistrationActivity extends AppCompatActivity {
                             //Redirect to home page
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Registration complete",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                         } else {
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Registration failed",Toast.LENGTH_SHORT).show();
                         }
                     }
-                })
+                });
             }
         });
         haveAccount.setOnClickListener(new View.OnClickListener() {
