@@ -2,6 +2,7 @@ package com.hdogmbh.budgettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,6 +41,20 @@ public class MainActivity extends AppCompatActivity {
                     mEmailLogin.setError("Email and Password are required");
                     return;
                 }
+            }
+        });
+        // register new account and intent
+        newAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
+            }
+        });
+        //reset Password || forgot password
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
             }
         });
     }
