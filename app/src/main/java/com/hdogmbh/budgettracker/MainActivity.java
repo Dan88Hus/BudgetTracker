@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +45,20 @@ public class MainActivity extends AppCompatActivity {
         newAccount = findViewById(R.id.new_account);
         forgotPassword = findViewById(R.id.forget_password);
         mAuth = FirebaseAuth.getInstance();
+
+        //auto login
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            System.out.println("println: auto login");
+            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(i);
+        } else {
+            // User is signed out
+            System.out.println("println: auto login failed");
+        }
+
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

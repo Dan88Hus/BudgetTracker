@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -66,6 +67,11 @@ public class RegistrationActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                         } else {
                             mDialog.dismiss();
+                            try {
+                                throw task.getException();
+                            } catch(Exception e) {
+                                System.out.println("println: "+e.getMessage().toString());
+                            }
                             Toast.makeText(getApplicationContext(),"Registration failed",Toast.LENGTH_SHORT).show();
                         }
                     }
