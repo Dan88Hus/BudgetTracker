@@ -26,8 +26,22 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                System.out.println("println :"+item.getTitle());
-                return false;
+
+                String menuTitle = item.getTitle().toString() ;
+
+                switch (menuTitle){
+                    case "Dashboard":
+                        System.out.println("println dashboard:"+menuTitle);
+                        break;
+                    case "Income":
+                        System.out.println("println Income:"+menuTitle);
+                        break;
+                    case "Expense":
+                        System.out.println("println Expense:"+menuTitle);
+                        break;
+
+                }
+                return true;
             }
         });
     }
