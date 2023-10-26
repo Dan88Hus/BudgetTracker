@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +60,71 @@ public class Fragment_Dashboard extends Fragment {
         }
     }
 
+    //Floating buttons
+    private FloatingActionButton mainFloatingButton;
+    private FloatingActionButton incomeButton;
+    private FloatingActionButton expenseButton;
+
+    //Floating Buttons textview
+    private TextView expenseText;
+    private TextView incomeText;
+
+    //isOpen
+    private boolean isOpen = false; //closed by default
+
+    //Animation objects
+    private Animation mOpen,mClose;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__dashboard, container, false);
+        View myview = inflater.inflate(R.layout.fragment__dashboard, container, false);
+
+        // integrate the buttons to fragment
+
+        mainFloatingButton = myview.findViewById(R.id.mainFloatingButton);
+        incomeButton = myview.findViewById(R.id.incomeButton);
+        expenseButton = myview.findViewById(R.id.expenseButton);
+
+        // integrate the buttons to fragment
+        expenseText = myview.findViewById(R.id.expenseText);
+        incomeText = myview.findViewById(R.id.incomeText);
+
+        //Animation integrating to class
+        mOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.enlarge_anim);
+        mClose = AnimationUtils.loadAnimation(getActivity(), R.anim.shrink_anim);
+
+        //onClickListeners
+
+        mainFloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOpen){
+                    incomeButton.startAnimation(mClose);
+                    expenseButton.startAnimation(mClose);
+                    incomeButton.setClickable(false);
+                    expenseButton.setClickable(false);
+                    incomeText.startAnimation(mClose);
+                    expenseText.startAnimation(mClose);
+                    incomeText.setClickable(false);
+                    expenseText.setClickable(false);
+                    isOpen = false;
+                } else {
+                    incomeButton.startAnimation(mOpen);
+                    expenseButton.startAnimation(mOpen);
+                    incomeButton.setClickable(true);
+                    expenseButton.setClickable(true);
+                    incomeText.startAnimation(mOpen);
+                    expenseText.startAnimation(mOpen);
+                    incomeText.setClickable(true);
+                    expenseText.setClickable(true);
+                    isOpen = true;
+                }
+            }
+        });
+
+        return myview;
     }
 }

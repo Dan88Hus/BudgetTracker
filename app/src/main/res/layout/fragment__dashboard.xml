@@ -113,4 +113,99 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|end"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="160dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expense"
+                android:id="@+id/expenseText"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:visibility="invisible"
+                android:textAppearance="?textAppearanceDisplaySmall">
+
+            </TextView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/expenseButton"
+                android:layout_gravity="bottom|end"
+                android:backgroundTint="@color/gray"
+                android:elevation="6dp"
+                app:fabSize="mini"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp"
+                android:src="@drawable/remove_income"
+                >
+
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="90dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income"
+            android:id="@+id/incomeText"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:visibility="invisible"
+            android:textAppearance="?textAppearanceDisplaySmall">
+
+        </TextView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/incomeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/gray"
+            android:elevation="6dp"
+            android:src="@drawable/add_income"
+            android:visibility="invisible"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mainFloatingButton"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/material_dynamic_primary60"
+            android:elevation="6dp"
+            app:fabSize="normal"
+            android:visibility="visible"
+            app:pressedTranslationZ="12dp"
+            android:src="@drawable/add_income"
+            >
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
