@@ -1,17 +1,25 @@
 package com.hdogmbh.budgettracker;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,10 +83,25 @@ public class Fragment_Dashboard extends Fragment {
     //Animation objects
     private Animation mOpen,mClose;
 
+    //Firebase variables
+    private FirebaseAuth mAuth;
+    private DatabaseReference mIncomeDb;
+    private DatabaseReference mExpenseDb;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //create firebase instance
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String uid = mUser.getUid();
+
+        mIncomeDb = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
+        mExpenseDb = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
+
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment__dashboard, container, false);
 
@@ -101,6 +124,8 @@ public class Fragment_Dashboard extends Fragment {
         mainFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                insertData();
+                // if its open it close and vice-versa
                 if (isOpen){
                     incomeButton.startAnimation(mClose);
                     expenseButton.startAnimation(mClose);
@@ -126,5 +151,76 @@ public class Fragment_Dashboard extends Fragment {
         });
 
         return myview;
+    }
+    // to assign onClickListener on floating buttons
+    private void insertData(){
+
+        incomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeDataInput();
+            }
+        });
+
+        expenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+    }
+
+    // this method will save the income amount, it inflates the dialog
+    private void incomeDataInput(){
+
+        System.out.println("println incomeDataInput runs");
+
+        AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater incomeLayoutInflater = LayoutInflater.from(getActivity());
+
+        View incomeView = incomeLayoutInflater.inflate(R.layout.layout_data_input,null);
+
+        incomeDialog.setView(incomeView);
+
+        AlertDialog incomeAmountDialog = incomeDialog.create();
+
+        EditText inputAmount = incomeView.findViewById(R.id.amount_id);
+        EditText inputType = incomeView.findViewById(R.id.type_id);
+
+        Button btnSave = incomeView.findViewById(R.id.btnSave);
+        Button btnCancel = incomeView.findViewById(R.id.btnCancel);
+
+        //clickListeners
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type =  inputType.getText().toString().trim();
+                Long amount = Long.parseLong(inputAmount.getText().toString().trim());
+
+                if (TextUtils.isEmpty(type)){
+                    inputType.setError("Enter type");
+                    return;
+
+                }
+                if (amount.equals(null)){
+                    inputAmount.setError("Enter amount");
+                    return;
+                }
+
+
+
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeAmountDialog.dismiss();
+            }
+        });
+
+        incomeAmountDialog.show();
+
     }
 }

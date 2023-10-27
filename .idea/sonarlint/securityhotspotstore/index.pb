@@ -7,3 +7,17 @@ C
 settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
 H
 app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
+9
+	Readme.md,0\c\0c1945d7443c2e154bd3e421c0d438bd4086d8c3
+w
+Gapp/src/main/java/com/hdogmbh/budgettracker/ForgotPasswordActivity.java,4\6\468bfece01786186817cbb6706bb20adb868d89a
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
+D
+app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
+q
+Aapp/src/main/java/com/hdogmbh/budgettracker/Fragment_Expense.java,9\7\97dd191e219bd9e08cd9bff6837a5a28effff30c
+p
+@app/src/main/java/com/hdogmbh/budgettracker/Fragment_Income.java,f\1\f15bbde2d0017a4fde55ffffe11f8092aa4be4d0
