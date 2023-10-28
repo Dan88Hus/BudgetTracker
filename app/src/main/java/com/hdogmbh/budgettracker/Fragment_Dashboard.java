@@ -3,6 +3,7 @@ package com.hdogmbh.budgettracker;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -14,12 +15,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.hdogmbh.budgettracker.dataInput_Controllers.IncomeInput;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,8 +95,10 @@ public class Fragment_Dashboard extends Fragment {
 
     //Firebase variables
     private FirebaseAuth mAuth;
-    private DatabaseReference mIncomeDb;
-    private DatabaseReference mExpenseDb;
+
+    private DatabaseReference mBudgetTracker;
+    FirebaseFirestore firestore;
+
 
 
 
@@ -99,8 +111,11 @@ public class Fragment_Dashboard extends Fragment {
         FirebaseUser mUser = mAuth.getCurrentUser();
         String uid = mUser.getUid();
 
-        mIncomeDb = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        mExpenseDb = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
+        mBudgetTracker = FirebaseDatabase.getInstance().getReference();
+
+        firestore = FirebaseFirestore.getInstance();
+
+
 
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment__dashboard, container, false);
@@ -124,7 +139,7 @@ public class Fragment_Dashboard extends Fragment {
         mainFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertData();
+                insertData(uid);
                 // if its open it close and vice-versa
                 if (isOpen){
                     incomeButton.startAnimation(mClose);
@@ -153,12 +168,12 @@ public class Fragment_Dashboard extends Fragment {
         return myview;
     }
     // to assign onClickListener on floating buttons
-    private void insertData(){
+    private void insertData(String uid){
 
         incomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                incomeDataInput();
+                incomeDataInput(uid);
             }
         });
 
@@ -171,9 +186,9 @@ public class Fragment_Dashboard extends Fragment {
     }
 
     // this method will save the income amount, it inflates the dialog
-    private void incomeDataInput(){
+    private void incomeDataInput(String uid){
 
-        System.out.println("println incomeDataInput runs");
+        System.out.println("println: incomeDataInput runs");
 
         AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
 
@@ -196,20 +211,40 @@ public class Fragment_Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 String type =  inputType.getText().toString().trim();
-                Long amount = Long.parseLong(inputAmount.getText().toString().trim());
+                String amountString = inputAmount.getText().toString().trim();
+                Long amountLong = Long.parseLong(amountString);
 
                 if (TextUtils.isEmpty(type)){
                     inputType.setError("Enter type");
                     return;
 
                 }
-                if (amount.equals(null)){
-                    inputAmount.setError("Enter amount");
+                if (TextUtils.isEmpty(amountString)){
+                    inputAmount.setError("Enter Amount");
                     return;
                 }
+                // saving to Db
 
+                String mDate = DateFormat.getDateInstance().format(new Date());
 
+                IncomeInput dataInput = new IncomeInput(amountLong,type,mDate,uid);
 
+//                mIncomeDb.child(id).setValue(dataInput);
+                firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(),"saved to Db",Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),"Failure to save Db",Toast.LENGTH_SHORT).show();
+                        System.out.println("println: "+e);
+                    }
+                });
+
+                incomeAmountDialog.dismiss();
             }
         });
 
