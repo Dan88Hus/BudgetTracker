@@ -196,6 +196,8 @@ public class Fragment_Dashboard extends Fragment {
 
         View incomeView = incomeLayoutInflater.inflate(R.layout.layout_data_input,null);
 
+        incomeDialog.setTitle("Income Data");
+
         incomeDialog.setView(incomeView);
 
         AlertDialog incomeAmountDialog = incomeDialog.create();
@@ -269,6 +271,8 @@ public class Fragment_Dashboard extends Fragment {
         LayoutInflater incomeLayoutInflater = LayoutInflater.from(getActivity());
 
         View incomeView = incomeLayoutInflater.inflate(R.layout.layout_data_input,null);
+
+        incomeDialog.setTitle("Expense Data");
 
         incomeDialog.setView(incomeView);
 
