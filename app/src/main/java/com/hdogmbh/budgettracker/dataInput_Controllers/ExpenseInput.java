@@ -1,7 +1,7 @@
 package com.hdogmbh.budgettracker.dataInput_Controllers;
 
 public class ExpenseInput {
-    private long ExpenseAmount;
+    private long expenseAmount;
     private String type;
     private String date;
 
@@ -20,11 +20,11 @@ public class ExpenseInput {
     }
 
     public long getExpenseAmount() {
-        return ExpenseAmount;
+        return expenseAmount;
     }
 
     public void setExpenseAmount(long expenseAmount) {
-        this.ExpenseAmount = expenseAmount;
+        this.expenseAmount = expenseAmount;
     }
 
     public String getType() {
@@ -44,8 +44,8 @@ public class ExpenseInput {
         this.date = date;
     }
 
-    public ExpenseInput(long ExpenseAmount, String type, String date, String uid) {
-        this.ExpenseAmount = ExpenseAmount;
+    public ExpenseInput(long expenseAmount, String type, String date, String uid) {
+        this.expenseAmount = expenseAmount;
         this.type = type;
         this.date = date;
         this.uid = uid;

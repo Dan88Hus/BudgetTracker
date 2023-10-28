@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.hdogmbh.budgettracker.dataInput_Controllers.ExpenseInput;
 import com.hdogmbh.budgettracker.dataInput_Controllers.IncomeInput;
 
 import java.text.DateFormat;
@@ -179,8 +180,7 @@ public class Fragment_Dashboard extends Fragment {
 
         expenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            }
+            public void onClick(View v) { expenseDataInput(uid); }
         });
 
     }
@@ -233,13 +233,87 @@ public class Fragment_Dashboard extends Fragment {
                 firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(),"saved to Db",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Income saved to Db",Toast.LENGTH_SHORT).show();
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"Failure to save Db",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Income failed to save Db",Toast.LENGTH_SHORT).show();
+                        System.out.println("println: "+e);
+                    }
+                });
+
+                incomeAmountDialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeAmountDialog.dismiss();
+            }
+        });
+
+        incomeAmountDialog.show();
+
+    }
+
+    //ExpenseDataInput
+    private void expenseDataInput(String uid){
+
+        System.out.println("println: expenseDataInput runs");
+
+        AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater incomeLayoutInflater = LayoutInflater.from(getActivity());
+
+        View incomeView = incomeLayoutInflater.inflate(R.layout.layout_data_input,null);
+
+        incomeDialog.setView(incomeView);
+
+        AlertDialog incomeAmountDialog = incomeDialog.create();
+
+        EditText inputAmount = incomeView.findViewById(R.id.amount_id);
+        EditText inputType = incomeView.findViewById(R.id.type_id);
+
+        Button btnSave = incomeView.findViewById(R.id.btnSave);
+        Button btnCancel = incomeView.findViewById(R.id.btnCancel);
+
+        //clickListeners
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type =  inputType.getText().toString().trim();
+                String amountString = inputAmount.getText().toString().trim();
+                Long amountLong = Long.parseLong(amountString);
+
+                if (TextUtils.isEmpty(type)){
+                    inputType.setError("Enter type");
+                    return;
+
+                }
+                if (TextUtils.isEmpty(amountString)){
+                    inputAmount.setError("Enter Amount");
+                    return;
+                }
+                // saving to Db
+
+                String mDate = DateFormat.getDateInstance().format(new Date());
+
+                ExpenseInput dataInput = new ExpenseInput(amountLong,type,mDate,uid);
+
+//                mIncomeDb.child(id).setValue(dataInput);
+                firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(),"Expense saved to Db",Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),"Expense failed to save Db",Toast.LENGTH_SHORT).show();
                         System.out.println("println: "+e);
                     }
                 });
