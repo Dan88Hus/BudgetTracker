@@ -62,6 +62,9 @@ public class HomeActivity extends AppCompatActivity {
                     case "Expense":
                         System.out.println("println Expense:"+menuTitle);
 //                        setFragment(expenseFragment);
+                        Intent expenseIntent = new Intent(HomeActivity.this, ExpenseActivity.class);
+                        expenseIntent.putExtra("uid", uid);
+                        HomeActivity.this.startActivity(expenseIntent);
                         break;
 
                 }
