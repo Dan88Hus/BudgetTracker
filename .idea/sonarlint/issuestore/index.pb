@@ -11,10 +11,6 @@ w
 Gapp/src/main/java/com/hdogmbh/budgettracker/ForgotPasswordActivity.java,4\6\468bfece01786186817cbb6706bb20adb868d89a
 9
 	Readme.md,0\c\0c1945d7443c2e154bd3e421c0d438bd4086d8c3
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-q
-Aapp/src/main/java/com/hdogmbh/budgettracker/Fragment_Expense.java,9\7\97dd191e219bd9e08cd9bff6837a5a28effff30c
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 S

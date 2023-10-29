@@ -5,19 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView navigationView;
     private FrameLayout frameLayout;
     private Fragment_Dashboard dashboardFragment;
-    private Fragment_Income incomeFragment;
-    private Fragment_Expense expenseFragment;
+    private FirebaseAuth mAuth;
+
 
 
     @Override
@@ -25,12 +28,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //create firebase instance
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String uid = mUser.getUid();
+
         navigationView = findViewById(R.id.bottomNavBar);
         frameLayout = findViewById(R.id.frame_layout_main);
 
         dashboardFragment = new Fragment_Dashboard();
-        incomeFragment = new Fragment_Income();
-        expenseFragment = new Fragment_Expense();
 
         setFragment(dashboardFragment);
 
@@ -48,11 +54,14 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case "Income":
                         System.out.println("println Income:"+menuTitle);
-                        setFragment(incomeFragment);
+//                        setFragment(incomeFragment);
+                        Intent incomeIntent = new Intent(HomeActivity.this, IncomeActivity.class);
+                        incomeIntent.putExtra("uid", uid);
+                        HomeActivity.this.startActivity(incomeIntent);
                         break;
                     case "Expense":
                         System.out.println("println Expense:"+menuTitle);
-                        setFragment(expenseFragment);
+//                        setFragment(expenseFragment);
                         break;
 
                 }
