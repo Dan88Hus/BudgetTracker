@@ -31,7 +31,7 @@ public class IncomeActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(String uid) {
-        Query query = incomeInputRef.whereEqualTo("uid",uid);
+        Query query = incomeInputRef.whereEqualTo("uid",uid).whereNotEqualTo("incomeAmount",0);
 
         FirestoreRecyclerOptions<IncomeInput> options = new FirestoreRecyclerOptions.Builder<IncomeInput>().setQuery(query, IncomeInput.class).build();
 

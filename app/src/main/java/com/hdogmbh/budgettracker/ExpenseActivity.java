@@ -31,7 +31,7 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(String uid) {
-        Query query = expenseInputRef.whereEqualTo("uid",uid);
+        Query query = expenseInputRef.whereEqualTo("uid",uid).whereNotEqualTo("expenseAmount",0);
         FirestoreRecyclerOptions<ExpenseInput> options = new FirestoreRecyclerOptions.Builder<ExpenseInput>().setQuery(query, ExpenseInput.class).build();
 
         expenseAdapter = new ExpenseAdapter(options);
