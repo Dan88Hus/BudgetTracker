@@ -307,7 +307,6 @@ public class Fragment_Dashboard extends Fragment {
 
                 ExpenseInput dataInput = new ExpenseInput(amountLong,type,mDate,uid);
 
-//                mIncomeDb.child(id).setValue(dataInput);
                 firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

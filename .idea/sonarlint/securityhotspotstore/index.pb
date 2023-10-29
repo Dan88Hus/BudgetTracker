@@ -15,11 +15,11 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 q
 Aapp/src/main/java/com/hdogmbh/budgettracker/Fragment_Expense.java,9\7\97dd191e219bd9e08cd9bff6837a5a28effff30c
-p
-@app/src/main/java/com/hdogmbh/budgettracker/Fragment_Income.java,f\1\f15bbde2d0017a4fde55ffffe11f8092aa4be4d0
-m
-=app/src/main/java/com/hdogmbh/budgettracker/HomeActivity.java,3\d\3da32d4e72966f05a08fa146a767fe704243913f
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+m
+=app/src/main/java/com/hdogmbh/budgettracker/MainActivity.java,e\d\ed38bbedfacc02bf3f42ddfec219d1a8b37a3a1e
+u
+Eapp/src/main/java/com/hdogmbh/budgettracker/RegistrationActivity.java,d\f\dfd889b47e63d60b9deadc212ccef50c2eac882b

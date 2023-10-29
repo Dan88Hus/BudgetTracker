@@ -16,13 +16,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <TextView
+                android:id="@+id/date_income"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="date"
                 android:textAppearance="?textAppearanceBodySmall"
-                android:textStyle="bold"
-                android:id="@+id/date_income">
+                android:textStyle="bold">
 
             </TextView>
 

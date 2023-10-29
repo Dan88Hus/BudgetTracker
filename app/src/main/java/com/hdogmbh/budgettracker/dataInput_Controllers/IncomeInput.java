@@ -4,6 +4,8 @@ public class IncomeInput {
     private long incomeAmount;
     private String type;
     private String date;
+    private String uid; // user id of Firebase firestore
+
 
     public String getUid() {
         return uid;
@@ -13,7 +15,6 @@ public class IncomeInput {
         this.uid = uid;
     }
 
-    private String uid; // user id of Firebase firestore
 
     public IncomeInput(){
 
