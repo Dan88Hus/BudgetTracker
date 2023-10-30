@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        >
 
 
         <LinearLayout
@@ -36,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Income"
-                        android:textAppearance="?textAppearanceDisplaySmall"
+                        android:textAppearance="?textAppearanceHeadline5"
                         android:textColor="@color/black"
                         android:gravity="center">
 
@@ -53,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Expense"
-                        android:textAppearance="?textAppearanceDisplaySmall"
+                        android:textAppearance="?textAppearanceHeadline5"
                         android:textColor="@color/black"
                         android:gravity="center">
 
@@ -81,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:text="000.000"
                         android:id="@+id/income_set_result"
-                        android:textAppearance="?textAppearanceBodyMedium"
+                        android:textAppearance="?textAppearanceHeadline6"
                         android:textColor="@color/black"
                         android:gravity="center">
 
@@ -99,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:text="000.000"
                         android:id="@+id/expense_set_result"
-                        android:textAppearance="?textAppearanceBodyMedium"
+                        android:textAppearance="?textAppearanceHeadline6"
                         android:textColor="@color/black"
                         android:gravity="center">
 
@@ -134,7 +135,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="5dp"
                 android:visibility="invisible"
-                android:textAppearance="?textAppearanceDisplaySmall">
+                android:textAppearance="?textAppearanceHeadline5">
 
             </TextView>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -172,7 +173,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:visibility="invisible"
-            android:textAppearance="?textAppearanceDisplaySmall">
+            android:textAppearance="?textAppearanceHeadline5">
 
         </TextView>
 

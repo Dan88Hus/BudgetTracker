@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,15 +7,20 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
         android:elevation="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -22,11 +28,32 @@
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/btn_back">
+
+                </ImageButton>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content">
+>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Income"
-                    android:textAppearance="?textAppearanceDisplaySmall"/>
+                    android:textAppearance="?textAppearanceHeadline4"/>
 
             </RelativeLayout>
 
@@ -42,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/incomeTextField"
                     android:text="000.000"
-                    android:textAppearance="?textAppearanceDisplaySmall"/>
+                    android:textAppearance="?textAppearanceHeadline5"/>
 
             </RelativeLayout>
         </LinearLayout>
