@@ -25,17 +25,11 @@ u
 Eapp/src/main/java/com/hdogmbh/budgettracker/RegistrationActivity.java,d\f\dfd889b47e63d60b9deadc212ccef50c2eac882b
 o
 ?app/src/main/java/com/hdogmbh/budgettracker/ExpenseAdapter.java,f\4\f471b65a290bddfc1fb1156e78c084ba02f34144
-m
-=app/src/main/java/com/hdogmbh/budgettracker/MainActivity.java,e\d\ed38bbedfacc02bf3f42ddfec219d1a8b37a3a1e
 @
 build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 D
 app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
 o
 ?app/src/main/java/com/hdogmbh/budgettracker/IncomeActivity.java,4\3\43c2aff5245b7968bce5fbcd813e471e6663874f
-m
-=app/src/main/java/com/hdogmbh/budgettracker/HomeActivity.java,3\d\3da32d4e72966f05a08fa146a767fe704243913f
 p
 @app/src/main/java/com/hdogmbh/budgettracker/ExpenseActivity.java,c\3\c3b35a2ec61b4d54412180225f45ea187d8a229e

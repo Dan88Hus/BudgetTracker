@@ -43,20 +43,19 @@ public class MainActivity extends AppCompatActivity {
         mPasswordLogin = findViewById(R.id.password_login);
         btnLogin = findViewById(R.id.btn_login);
         newAccount = findViewById(R.id.new_account);
-        forgotPassword = findViewById(R.id.forget_password);
         mAuth = FirebaseAuth.getInstance();
 
         //auto login
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            System.out.println("println: auto login");
-            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(i);
-        } else {
-            // User is signed out
-            System.out.println("println: auto login failed");
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            // User is signed in
+//            System.out.println("println: auto login");
+//            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+//            startActivity(i);
+//        } else {
+//            // User is signed out
+//            System.out.println("println: auto login failed");
+//        }
 
 
 
@@ -92,13 +91,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
-            }
-        });
-        //reset Password || forgot password
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
             }
         });
     }
