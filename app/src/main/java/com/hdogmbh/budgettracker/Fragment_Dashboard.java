@@ -33,6 +33,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hdogmbh.budgettracker.dataInput_Controllers.ExpenseInput;
+import com.hdogmbh.budgettracker.dataInput_Controllers.GoalInput;
 import com.hdogmbh.budgettracker.dataInput_Controllers.IncomeInput;
 
 import java.text.DateFormat;
@@ -97,6 +98,14 @@ public class Fragment_Dashboard extends Fragment {
     private TextView individual_goal_textview;
     private TextView income_set_result;
     private TextView expense_set_result;
+    private TextView individual_goal_result;
+    private TextView difference_result;
+    private double sumIncomeFinal = 0.0;
+    private double sumExpenseFinal = 0.0;
+
+    private double sumDifferenceFinal = 0.0;
+
+
 
 
     //isOpen
@@ -144,6 +153,9 @@ public class Fragment_Dashboard extends Fragment {
         individual_goal_textview = myview.findViewById(R.id.individual_goal_textview);
         income_set_result = myview.findViewById(R.id.income_set_result);
         expense_set_result = myview.findViewById(R.id.expense_set_result);
+        individual_goal_result = myview.findViewById(R.id.individual_goal_result);
+        difference_result = myview.findViewById(R.id.difference_result);
+
 
         //Animation integrating to class
         mOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.enlarge_anim);
@@ -193,41 +205,63 @@ public class Fragment_Dashboard extends Fragment {
     }
 
     private void firebaseFetch(String uid) {
+
         Query query = dashboardInputRef.whereEqualTo("uid",uid);
+        Query queryForGoal = dashboardInputRef.whereEqualTo("uid",uid).orderBy("date", Query.Direction.DESCENDING).limit(1);
+
 //       for incomeAmount
         dashboardInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     double sumIncome = 0.0;
+                    double sumExpenseNew = 0.0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Assuming 'amount' is the field you want to sum
                         Double amount = document.getDouble("incomeAmount");
+                        Double expense = document.getDouble("expenseAmount");
                         if (amount != null) {
                             sumIncome += amount;
                         }
+                        if (expense != null) {
+                            sumExpenseNew += expense;
+                        }
                     }
+
+                    sumIncomeFinal = sumIncome;
+                    sumExpenseFinal = sumExpenseNew ;
+                    sumDifferenceFinal = sumIncomeFinal-sumExpenseFinal;
+
+                    difference_result.setText(String.valueOf(sumDifferenceFinal));
                     income_set_result.setText(String.valueOf(sumIncome));
+                    expense_set_result.setText(String.valueOf(sumExpenseNew));
                 }
             }
         });
-        //       for expenseAmount
-        dashboardInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        //       for goalAmount
+        dashboardInputRef.whereEqualTo("uid",uid).whereGreaterThan("goalAmount",0).orderBy("goalAmount", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    double sumExpense = 0.0;
+                    double latestGoalAmount = 0.0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Assuming 'amount' is the field you want to sum
-                        Double amount = document.getDouble("expenseAmount");
+                        Double amount = document.getDouble("goalAmount");
                         if (amount != null) {
-                            sumExpense += amount;
+                            latestGoalAmount += amount;
                         }
                     }
-                    expense_set_result.setText(String.valueOf(sumExpense));
+                    individual_goal_result.setText(String.valueOf(latestGoalAmount));
+                } else {
+                    System.out.println("println: fetch goal is failed : "+task.getException().getMessage());
                 }
             }
         });
+        sumDifferenceFinal = sumIncomeFinal-sumExpenseFinal ;
+        System.out.println("println: sum "+ sumDifferenceFinal);
+
+
 
     }
 
@@ -246,7 +280,88 @@ public class Fragment_Dashboard extends Fragment {
             public void onClick(View v) { expenseDataInput(uid); }
         });
 
+        individualGoalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goalDataInput(uid);
+            }
+        });
 
+
+
+    }
+
+
+    private void goalDataInput(String uid){
+
+        AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater incomeLayoutInflater = LayoutInflater.from(getActivity());
+
+        View incomeView = incomeLayoutInflater.inflate(R.layout.layout_data_input,null);
+
+        incomeDialog.setTitle("Goal Data");
+
+        incomeDialog.setView(incomeView);
+
+        AlertDialog incomeAmountDialog = incomeDialog.create();
+
+        EditText inputAmount = incomeView.findViewById(R.id.amount_id);
+        EditText inputType = incomeView.findViewById(R.id.type_id);
+
+        Button btnSave = incomeView.findViewById(R.id.btnSave);
+        Button btnCancel = incomeView.findViewById(R.id.btnCancel);
+
+        //clickListeners
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type =  inputType.getText().toString().trim();
+                String amountString = inputAmount.getText().toString().trim();
+                Long amountLong = Long.parseLong(amountString);
+
+                if (TextUtils.isEmpty(type)){
+                    inputType.setError("Enter type");
+                    return;
+
+                }
+                if (TextUtils.isEmpty(amountString)){
+                    inputAmount.setError("Enter Amount");
+                    return;
+                }
+                // saving to Db
+
+                String mDate = DateFormat.getDateInstance().format(new Date());
+
+                GoalInput dataInput = new GoalInput(amountLong,type,mDate,uid);
+
+//                mIncomeDb.child(id).setValue(dataInput);
+                firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(),"Goal saved to Db",Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),"Goal failed to save Db",Toast.LENGTH_SHORT).show();
+                        System.out.println("println: "+e);
+                    }
+                });
+
+                incomeAmountDialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeAmountDialog.dismiss();
+            }
+        });
+
+        incomeAmountDialog.show();
 
     }
 
