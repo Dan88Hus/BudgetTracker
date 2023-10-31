@@ -240,6 +240,7 @@ public class Fragment_Dashboard extends Fragment {
         });
 
         //       for goalAmount
+//        whereGreaterThan("goalAmount",0)
         dashboardInputRef.whereEqualTo("uid",uid).whereGreaterThan("goalAmount",0).orderBy("goalAmount", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -251,6 +252,7 @@ public class Fragment_Dashboard extends Fragment {
                         if (amount != null) {
                             latestGoalAmount += amount;
                         }
+
                     }
                     individual_goal_result.setText(String.valueOf(latestGoalAmount));
                 } else {
@@ -258,6 +260,7 @@ public class Fragment_Dashboard extends Fragment {
                 }
             }
         });
+//        orderBy("date", Query.Direction.DESCENDING).limit(1)
         sumDifferenceFinal = sumIncomeFinal-sumExpenseFinal ;
         System.out.println("println: sum "+ sumDifferenceFinal);
 
