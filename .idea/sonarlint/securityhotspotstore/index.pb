@@ -15,3 +15,27 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 ‚
 Rapp/src/main/java/com/hdogmbh/budgettracker/dataInput_Controllers/IncomeInput.java,1\9\195f64d0284e66ca8a897fba952bc62619526d82
+ƒ
+Sapp/src/main/java/com/hdogmbh/budgettracker/dataInput_Controllers/ExpenseInput.java,1\f\1fa64c007314a296b07457df3da28ece8dc5f881
+n
+>app/src/main/java/com/hdogmbh/budgettracker/IncomeAdapter.java,6\2\6203d98e412561d111f527ddd7cbdd9411c0f03c
+A
+gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
+o
+?app/src/main/java/com/hdogmbh/budgettracker/ExpenseAdapter.java,f\4\f471b65a290bddfc1fb1156e78c084ba02f34144
+u
+Eapp/src/main/java/com/hdogmbh/budgettracker/RegistrationActivity.java,d\f\dfd889b47e63d60b9deadc212ccef50c2eac882b
+m
+=app/src/main/java/com/hdogmbh/budgettracker/MainActivity.java,e\d\ed38bbedfacc02bf3f42ddfec219d1a8b37a3a1e
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+D
+app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
+m
+=app/src/main/java/com/hdogmbh/budgettracker/HomeActivity.java,3\d\3da32d4e72966f05a08fa146a767fe704243913f
+o
+?app/src/main/java/com/hdogmbh/budgettracker/IncomeActivity.java,4\3\43c2aff5245b7968bce5fbcd813e471e6663874f
+p
+@app/src/main/java/com/hdogmbh/budgettracker/ExpenseActivity.java,c\3\c3b35a2ec61b4d54412180225f45ea187d8a229e

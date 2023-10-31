@@ -17,15 +17,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hdogmbh.budgettracker.dataInput_Controllers.ExpenseInput;
 import com.hdogmbh.budgettracker.dataInput_Controllers.IncomeInput;
 
@@ -83,10 +89,15 @@ public class Fragment_Dashboard extends Fragment {
     private FloatingActionButton mainFloatingButton;
     private FloatingActionButton incomeButton;
     private FloatingActionButton expenseButton;
+    private FloatingActionButton individualGoalButton;
 
     //Floating Buttons textview
     private TextView expenseText;
     private TextView incomeText;
+    private TextView individual_goal_textview;
+    private TextView income_set_result;
+    private TextView expense_set_result;
+
 
     //isOpen
     private boolean isOpen = false; //closed by default
@@ -99,8 +110,7 @@ public class Fragment_Dashboard extends Fragment {
 
     private DatabaseReference mBudgetTracker;
     FirebaseFirestore firestore;
-
-
+    private CollectionReference dashboardInputRef;
 
 
     @Override
@@ -115,8 +125,7 @@ public class Fragment_Dashboard extends Fragment {
         mBudgetTracker = FirebaseDatabase.getInstance().getReference();
 
         firestore = FirebaseFirestore.getInstance();
-
-
+        dashboardInputRef = firestore.collection("BudgetTracker");
 
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment__dashboard, container, false);
@@ -126,15 +135,21 @@ public class Fragment_Dashboard extends Fragment {
         mainFloatingButton = myview.findViewById(R.id.mainFloatingButton);
         incomeButton = myview.findViewById(R.id.incomeButton);
         expenseButton = myview.findViewById(R.id.expenseButton);
+        individualGoalButton = myview.findViewById(R.id.individualGoalButton);
+
 
         // integrate the buttons to fragment
         expenseText = myview.findViewById(R.id.expenseText);
         incomeText = myview.findViewById(R.id.incomeText);
+        individual_goal_textview = myview.findViewById(R.id.individual_goal_textview);
+        income_set_result = myview.findViewById(R.id.income_set_result);
+        expense_set_result = myview.findViewById(R.id.expense_set_result);
 
         //Animation integrating to class
         mOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.enlarge_anim);
         mClose = AnimationUtils.loadAnimation(getActivity(), R.anim.shrink_anim);
 
+        firebaseFetch(uid);
         //onClickListeners
 
         mainFloatingButton.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +162,10 @@ public class Fragment_Dashboard extends Fragment {
                     expenseButton.startAnimation(mClose);
                     incomeButton.setClickable(false);
                     expenseButton.setClickable(false);
+                    individualGoalButton.startAnimation(mClose);
+                    individualGoalButton.setClickable(false);
+                    individual_goal_textview.startAnimation(mClose);
+                    individual_goal_textview.setClickable(false);
                     incomeText.startAnimation(mClose);
                     expenseText.startAnimation(mClose);
                     incomeText.setClickable(false);
@@ -157,6 +176,10 @@ public class Fragment_Dashboard extends Fragment {
                     expenseButton.startAnimation(mOpen);
                     incomeButton.setClickable(true);
                     expenseButton.setClickable(true);
+                    individualGoalButton.startAnimation(mOpen);
+                    individualGoalButton.setClickable(true);
+                    individual_goal_textview.startAnimation(mOpen);
+                    individual_goal_textview.setClickable(true);
                     incomeText.startAnimation(mOpen);
                     expenseText.startAnimation(mOpen);
                     incomeText.setClickable(true);
@@ -168,6 +191,46 @@ public class Fragment_Dashboard extends Fragment {
 
         return myview;
     }
+
+    private void firebaseFetch(String uid) {
+        Query query = dashboardInputRef.whereEqualTo("uid",uid);
+//       for incomeAmount
+        dashboardInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    double sumIncome = 0.0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Assuming 'amount' is the field you want to sum
+                        Double amount = document.getDouble("incomeAmount");
+                        if (amount != null) {
+                            sumIncome += amount;
+                        }
+                    }
+                    income_set_result.setText(String.valueOf(sumIncome));
+                }
+            }
+        });
+        //       for expenseAmount
+        dashboardInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    double sumExpense = 0.0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Assuming 'amount' is the field you want to sum
+                        Double amount = document.getDouble("expenseAmount");
+                        if (amount != null) {
+                            sumExpense += amount;
+                        }
+                    }
+                    expense_set_result.setText(String.valueOf(sumExpense));
+                }
+            }
+        });
+
+    }
+
     // to assign onClickListener on floating buttons
     private void insertData(String uid){
 
@@ -183,12 +246,12 @@ public class Fragment_Dashboard extends Fragment {
             public void onClick(View v) { expenseDataInput(uid); }
         });
 
+
+
     }
 
     // this method will save the income amount, it inflates the dialog
     private void incomeDataInput(String uid){
-
-        System.out.println("println: incomeDataInput runs");
 
         AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
 
@@ -264,7 +327,6 @@ public class Fragment_Dashboard extends Fragment {
     //ExpenseDataInput
     private void expenseDataInput(String uid){
 
-        System.out.println("println: expenseDataInput runs");
 
         AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
 

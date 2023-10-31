@@ -117,8 +117,141 @@
     
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="top"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+            <!--statistic label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Statistics: "
+                android:id="@+id/statistic_label"
+                android:padding="5dp"
+                android:layout_gravity="top"
+                android:layout_marginRight="5dp"
+                android:visibility="visible"
+                android:textAppearance="?textAppearanceHeadline5">
+            </TextView>
+            <!--individual goal label -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="individual Goal: "
+                    android:id="@+id/individual_goal_label"
+                    android:padding="5dp"
+                    android:layout_gravity="top"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:visibility="visible"
+                    android:textAppearance="?textAppearanceHeadline6">
+                    <!--                text view for data-->
+
+                </TextView>
+
+<!--                individual goal text view-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000.0 "
+                    android:id="@+id/individual_goal_result"
+                    android:padding="5dp"
+                    android:layout_gravity="top"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:visibility="visible"
+                    android:textAppearance="?textAppearanceHeadline6">
+                    <!--                text view for data-->
+
+                </TextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--difference label -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Income-Expense: "
+                    android:id="@+id/difference_label"
+                    android:padding="5dp"
+                    android:layout_gravity="top"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:visibility="visible"
+                    android:textAppearance="?textAppearanceHeadline6">
+                </TextView>
+
+                <!--difference text view-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000.0 "
+                    android:id="@+id/difference_result"
+                    android:padding="5dp"
+                    android:layout_gravity="top"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:visibility="visible"
+                    android:textAppearance="?textAppearanceHeadline6">
+                </TextView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|end"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="230dp">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal"
+                android:id="@+id/individual_goal_textview"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:visibility="invisible"
+                android:textAppearance="?textAppearanceHeadline5">
+
+            </TextView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/individualGoalButton"
+                android:layout_gravity="bottom|end"
+                android:backgroundTint="@color/gray"
+                android:elevation="6dp"
+                app:fabSize="mini"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp"
+                android:src="@drawable/individual_goal"
+                >
+
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
