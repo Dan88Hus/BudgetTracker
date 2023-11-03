@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,22 +57,29 @@ public class IncomeActivity extends AppCompatActivity {
         });
         Query query = incomeInputRef.whereEqualTo("uid",uid);
 
-        incomeInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        incomeInputRef.whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    double sumIncome = 0.0;
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Assuming 'amount' is the field you want to sum
-                        Double amount = document.getDouble("incomeAmount");
-                        if (amount != null) {
-                            sumIncome += amount;
-                        }
-                    }
+                   double sumIncome = calculateSumIncome(task.getResult());
                     incomeTextField.setText(String.valueOf(sumIncome));
                 }
             }
         });
+    }
+
+//    method to return double
+    public double calculateSumIncome(QuerySnapshot querySnapshot) {
+        double sumIncome = 0.0;
+
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            // Assuming 'incomeAmount' is the field you want to sum
+            Double amount = document.getDouble("incomeAmount");
+            if (amount != null) {
+                sumIncome += amount;
+            }
+        }
+        return sumIncome;
     }
 
     private void setupRecyclerView(String uid) {
