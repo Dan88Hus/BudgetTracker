@@ -1,13 +1,0 @@
-
-D
-java:S1604/"(Make this anonymous inner class a lambda(°æ8Á¦•Š¸1
-J
-java:S16048"(Make this anonymous inner class a lambda(ì²ş˜ıÿÿÿÿ8Â¦•Š¸1
-s
-java:S1450#"VRemove the "btnBack" field and declare it as a local variable in the relevant methods.(¢Š×8§•Š¸1
-t
-java:S1450"RRemove the "uid" field and declare it as a local variable in the relevant methods.(Šüÿÿÿÿ8§•Š¸1
-V
-java:S18547"9Remove this useless assignment to local variable "query".(ÿÏ‰’8—§•Š¸1
-G
-java:S14817"*Remove this unused "query" local variable.(ÿÏ‰’8 §•Š¸1

@@ -210,7 +210,7 @@ public class Fragment_Dashboard extends Fragment {
         Query queryForGoal = dashboardInputRef.whereEqualTo("uid",uid).orderBy("date", Query.Direction.DESCENDING).limit(1);
 
 //       for incomeAmount
-        dashboardInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        dashboardInputRef.whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

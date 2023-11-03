@@ -19,8 +19,6 @@ A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
 n
 >app/src/main/java/com/hdogmbh/budgettracker/IncomeAdapter.java,6\2\6203d98e412561d111f527ddd7cbdd9411c0f03c
-p
-@app/src/main/java/com/hdogmbh/budgettracker/ExpenseActivity.java,c\3\c3b35a2ec61b4d54412180225f45ea187d8a229e
 €
 Papp/src/main/java/com/hdogmbh/budgettracker/dataInput_Controllers/GoalInput.java,e\f\efc07ee95aac941906828581eaa93b4e97a04c7a
 P

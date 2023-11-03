@@ -53,7 +53,7 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         });
         Query query = expenseInputRef.whereEqualTo("uid",uid);
-        expenseInputRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        expenseInputRef.whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
