@@ -5,8 +5,6 @@ C
 settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
 H
 app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
-9
-	Readme.md,0\c\0c1945d7443c2e154bd3e421c0d438bd4086d8c3
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 S
