@@ -204,7 +204,7 @@ public class Fragment_Dashboard extends Fragment {
         return myview;
     }
 
-    private void firebaseFetch(String uid) {
+    private double firebaseFetch(String uid) {
 
         Query query = dashboardInputRef.whereEqualTo("uid",uid);
         Query queryForGoal = dashboardInputRef.whereEqualTo("uid",uid).orderBy("date", Query.Direction.DESCENDING).limit(1);
@@ -263,9 +263,7 @@ public class Fragment_Dashboard extends Fragment {
 //        orderBy("date", Query.Direction.DESCENDING).limit(1)
         sumDifferenceFinal = sumIncomeFinal-sumExpenseFinal ;
         System.out.println("println: sum "+ sumDifferenceFinal);
-
-
-
+        return sumDifferenceFinal;
     }
 
     // to assign onClickListener on floating buttons

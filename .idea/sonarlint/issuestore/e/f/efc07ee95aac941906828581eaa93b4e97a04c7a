@@ -1,0 +1,8 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(öÈœøÿÿÿÿ8±ÎÚ±¸1
+…
+java:S4165"hRemove this useless assignment; "goalAmount" already holds the assigned value along all execution paths.(­••Ğ8ğ×Ü±¸1
+O
+java:S1172"3Remove this unused method parameter "incomeAmount".(ëˆšA8ö×Ü±¸1
+L
+java:S1656"/Remove or correct this useless self-assignment.(­••Ğ8ø×Ü±¸1
