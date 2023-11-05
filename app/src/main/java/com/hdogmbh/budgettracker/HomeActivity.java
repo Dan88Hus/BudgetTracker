@@ -44,29 +44,21 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 String menuTitle = item.getTitle().toString() ;
-
                 switch (menuTitle){
                     case "Dashboard":
-                        System.out.println("println dashboard:"+menuTitle);
                         setFragment(dashboardFragment);
                         break;
                     case "Income":
-                        System.out.println("println Income:"+menuTitle);
-//                        setFragment(incomeFragment);
                         Intent incomeIntent = new Intent(HomeActivity.this, IncomeActivity.class);
                         incomeIntent.putExtra("uid", uid);
                         HomeActivity.this.startActivity(incomeIntent);
                         break;
                     case "Expense":
-                        System.out.println("println Expense:"+menuTitle);
-//                        setFragment(expenseFragment);
                         Intent expenseIntent = new Intent(HomeActivity.this, ExpenseActivity.class);
                         expenseIntent.putExtra("uid", uid);
                         HomeActivity.this.startActivity(expenseIntent);
                         break;
-
                 }
                 return true;
             }

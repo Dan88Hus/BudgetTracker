@@ -209,7 +209,7 @@ public class Fragment_Dashboard extends Fragment {
         Query query = dashboardInputRef.whereEqualTo("uid",uid);
         Query queryForGoal = dashboardInputRef.whereEqualTo("uid",uid).orderBy("date", Query.Direction.DESCENDING).limit(1);
 
-//       for incomeAmount
+//       for incomeAmount and expense Amount
         dashboardInputRef.whereEqualTo("uid",uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -217,7 +217,7 @@ public class Fragment_Dashboard extends Fragment {
                     double sumIncome = 0.0;
                     double sumExpenseNew = 0.0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Assuming 'amount' is the field you want to sum
+                        // 'incomeAmount' is the field to sum
                         Double amount = document.getDouble("incomeAmount");
                         Double expense = document.getDouble("expenseAmount");
                         if (amount != null) {
@@ -238,9 +238,6 @@ public class Fragment_Dashboard extends Fragment {
                 }
             }
         });
-
-        //       for goalAmount
-//        whereGreaterThan("goalAmount",0)
         dashboardInputRef.whereEqualTo("uid",uid).whereGreaterThan("goalAmount",0).orderBy("goalAmount", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -260,7 +257,6 @@ public class Fragment_Dashboard extends Fragment {
                 }
             }
         });
-//        orderBy("date", Query.Direction.DESCENDING).limit(1)
         sumDifferenceFinal = sumIncomeFinal-sumExpenseFinal ;
         System.out.println("println: sum "+ sumDifferenceFinal);
         return sumDifferenceFinal;
@@ -287,12 +283,7 @@ public class Fragment_Dashboard extends Fragment {
                 goalDataInput(uid);
             }
         });
-
-
-
     }
-
-
     private void goalDataInput(String uid){
 
         AlertDialog.Builder incomeDialog = new AlertDialog.Builder(getActivity());
@@ -305,7 +296,7 @@ public class Fragment_Dashboard extends Fragment {
 
         incomeDialog.setView(incomeView);
 
-        AlertDialog incomeAmountDialog = incomeDialog.create();
+            AlertDialog incomeAmountDialog = incomeDialog.create();
 
         EditText inputAmount = incomeView.findViewById(R.id.amount_id);
         EditText inputType = incomeView.findViewById(R.id.type_id);
@@ -473,29 +464,24 @@ public class Fragment_Dashboard extends Fragment {
                 if (TextUtils.isEmpty(type)){
                     inputType.setError("Enter type");
                     return;
-
                 }
                 if (TextUtils.isEmpty(amountString)){
                     inputAmount.setError("Enter Amount");
                     return;
                 }
                 // saving to Db
-
                 String mDate = DateFormat.getDateInstance().format(new Date());
-
                 ExpenseInput dataInput = new ExpenseInput(amountLong,type,mDate,uid);
-
                 firestore.collection("BudgetTracker").add(dataInput).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(),"Expense saved to Db",Toast.LENGTH_SHORT).show();
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getActivity(),"Expense failed to save Db",Toast.LENGTH_SHORT).show();
-                        System.out.println("println: "+e);
+                        System.out.println("on Failure: "+e);
                     }
                 });
 
