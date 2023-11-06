@@ -46,7 +46,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation ("com.google.firebase:firebase-firestore:24.2.0")
     androidTestImplementation ("com.android.support.test.uiautomator:uiautomator-v18:2.1.2")
-    testImplementation ("org.mockito:mockito-core:3.12.4")
+//    testImplementation ("org.mockito:mockito-core:3.12.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation("com.google.firebase:firebase-auth")

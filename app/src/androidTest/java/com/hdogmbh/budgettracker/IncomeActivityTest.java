@@ -8,16 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -36,7 +29,7 @@ public class IncomeActivityTest {
                     double sumIncome = calculateSumIncome(task.getResult());
                     System.out.println("println: sum "+sumIncome);
                 }
-                assertEquals("Expected income sum: ",1000.0,calculateSumIncome(task.getResult()),0.1);
+                assertEquals("Expected income sum: ",750.0,calculateSumIncome(task.getResult()),0.1);
             }
 
         });

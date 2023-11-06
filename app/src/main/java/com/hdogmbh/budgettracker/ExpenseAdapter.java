@@ -38,7 +38,6 @@ public class ExpenseAdapter extends FirestoreRecyclerAdapter<ExpenseInput, Expen
     public ExpenseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //layout will be single card
         View recylerView = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_recycler_layout,parent,false);
-
         return new ExpenseHolder(recylerView);
     }
 
