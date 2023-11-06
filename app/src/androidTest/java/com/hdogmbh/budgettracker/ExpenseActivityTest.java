@@ -33,7 +33,7 @@ public class ExpenseActivityTest {
                         if (amount != null) {
                             sumExpense += amount;
                         }
-                        assertEquals("Expected income sum: ",1000.0,sumExpense,0.1);
+                        assertEquals("Expected income sum: ",750.0,sumExpense,0.1);
                     }
                 }
             }

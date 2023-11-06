@@ -29,7 +29,7 @@ public class IncomeActivityTest {
                     double sumIncome = calculateSumIncome(task.getResult());
                     System.out.println("println: sum "+sumIncome);
                 }
-                assertEquals("Expected income sum: ",750.0,calculateSumIncome(task.getResult()),0.1);
+                assertEquals("Expected income sum: ",1000.0,calculateSumIncome(task.getResult()),0.1);
             }
 
         });
